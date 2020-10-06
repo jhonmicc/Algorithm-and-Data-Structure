@@ -1,0 +1,227 @@
+/* 1.Buatlah program dari 4 node berikut dengan kondisi awal linked list kosong:
+100->200->300->400->
+•Tambahkan node baru dengan data 500 dari belakang. Tambahkan node baru dengan data 50 dari depan. Tambahkan node dengan data 250 setelah node 200.
+•Hapus node depan. Selanjutnya hapus node belakang. Selanjutnya hapus node yg memiliki data 300.
+•Akses semua data dari seluruh node tersebut dari node yg paling depan ke belakang.
+2.Buatlah method untuk mengakses semua data pada single linked list.
+3.Buatlah method untuk replace data pada single linked list. Gunakan pengaksesan index pada node.
+ */
+
+package Algoritma_Struktur_Data;
+
+public class Node {
+
+  Node next;
+  int data;
+  
+  public Node() {
+  }
+  public Node(int data) {
+    this.data = data;
+  }  
+  public Node(int data, Node next) {
+    this.next = next;
+    this.data = data;
+  }
+}
+
+
+package Algoritma_Struktur_Data;
+
+public class SingleLinkedList {
+
+  Node head, tail;
+  int size = 0;//ada berapa Node
+
+  void inisialisasi() {
+    head = tail = null;
+  }
+  
+  public boolean isEmpty() {
+    return (size == 0);
+}
+
+  public void print() {
+    Node pointer = head;
+    while (pointer != null) {
+      System.out.printf("%s --> ", pointer.data);
+      pointer = pointer.next;//bergeser ke next
+    }
+    System.out.print(pointer);
+    System.out.println();
+  }
+  
+  public void addFirst(Node newInput) {
+    if (isEmpty()) {
+      head = tail = newInput;
+    } else {
+        newInput.next = head; //newInput menyimpan data di depan yaitu Head
+        head = newInput;
+    }
+    size++;
+  }
+  
+  public void addLast(Node newInput) {
+    if (isEmpty()) {
+      addFirst(new Node());
+    } else {
+      tail.next = newInput;//tail menyimpan data di depan yaitu newInput
+      tail = newInput;
+      }
+      size++;
+    }
+    
+  public void removeFirst() {
+    Node temp = head;
+    if (!isEmpty()) {
+      if (head == tail) {
+          head = tail = null;
+      } else {
+          temp = temp.next;
+          head = temp;
+          temp = null;
+      }
+      size--;
+    } else {
+      System.out.println("Data is Empty !");
+    }
+  }
+  
+  public void removeLast() {
+    Node temp = head;
+    if (!isEmpty()) {
+      if (head == tail) {
+          head = tail = null;
+      } else {
+        while (temp.next != tail) {
+          temp = temp.next;//temp bergeser
+        }
+        tail = temp;
+        temp.next = null;
+      }
+      size--;
+    } else {
+      System.out.println("Data is Empty !");
+    }
+  }
+  
+  public void remove(int key) {
+    if (isEmpty()) {
+      if (size == 1) {
+          head = tail = null;
+      } else {
+        if (head.data == key) {
+            Node newHead = head.next;
+            head.next = null;
+            head = newHead;
+        } else {
+          Node currentNode = head.next;
+          Node beforeDeleted = head;
+          do {
+            if (currentNode.data == key) {
+              if (currentNode == tail) {
+                  tail = beforeDeleted;
+              }
+              beforeDeleted.next = currentNode.next;
+              currentNode = null;
+              break;
+            }
+            currentNode = currentNode.next;
+            beforeDeleted = beforeDeleted.next;
+          } while (currentNode != null);
+        }
+      }
+    }
+    size--;
+  }
+  
+  public void insertAfter(int key, Node input) {
+    Node temp = head;
+    if (isEmpty() || tail.data == key) {
+      addLast(new Node());
+    } else {
+      do {
+        if (temp.data == key) {
+            input.next = temp.next;
+            temp.next = input;
+            break;
+        }
+        temp = temp.next;
+      } while (temp.next != null);
+    }
+    size++;
+  }
+  
+  public void insertBefore(int key, Node input) {
+    Node temp = head;
+    if (isEmpty() || head.data == key) {
+        addFirst(new Node());
+    } else {
+      do {
+        if (temp.next.data == key) {
+            input.next = temp.next;
+            temp.next = input;
+            break;
+        }
+        temp = temp.next;
+      } while (temp.next != null);
+    }
+    size++;
+  }
+  
+  public void replaceData(int old, int neww) {
+    int position = 0;
+    Node current = head;
+    if (isEmpty()) {
+      System.out.println("Data is Empty");
+      return;
+    }
+    while (current != null) {
+      if (current.data == old) {
+          current.data = neww;
+      }
+      current = current.next;
+      position++;
+    }
+  }
+  
+  int size() {
+    return size;
+  }
+}
+
+  package Algoritma_Struktur_Data;
+  
+  public class SingleLinkedListTes {
+  
+  public static void main(String[] args) {
+    SingleLinkedList list = new SingleLinkedList();
+    System.out.println("========== Data Awal ==========");
+    list.addFirst(new Node(400));
+    list.addFirst(new Node(300));
+    list.addFirst(new Node(200));
+    list.addFirst(new Node(100));
+    list.print();
+    System.out.println("\n========== Data 500 ditambah dari belakang ==========");
+    list.addLast(new Node(500));
+    list.print();
+    System.out.println("\n========== Tambah Data 50 dari depan ==========");
+    list.addFirst(new Node(50));
+    list.print();
+    System.out.println("\n========== Tambah Data 250 setelah data 200 ==========");
+    list.insertAfter(200, new Node(250));
+    list.print();
+    System.out.println("\n========== Hapus Node Paling Depan ==========");
+    list.removeFirst();
+    list.print();
+    System.out.println("\n========== Hapus Node Paling Belakang ==========");
+    list.removeLast();
+    list.print();
+    System.out.println("\n========== Hapus Data 300 ==========");
+    list.remove(300);
+    list.print();
+    System.out.println("\n========== Ganti Data ==========");
+    list.replaceData(400, 700);
+    list.print();
+  }
+}
