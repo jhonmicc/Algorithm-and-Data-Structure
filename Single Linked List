@@ -1,12 +1,17 @@
 /* 1.Buatlah program dari 4 node berikut dengan kondisi awal linked list kosong:
 100->200->300->400->
-•Tambahkan node baru dengan data 500 dari belakang. Tambahkan node baru dengan data 50 dari depan. Tambahkan node dengan data 250 setelah node 200.
-•Hapus node depan. Selanjutnya hapus node belakang. Selanjutnya hapus node yg memiliki data 300.
+•Tambahkan node baru dengan data 500 dari belakang.
+•Tambahkan node baru dengan data 50 dari depan.
+•Tambahkan node dengan data 250 setelah node 200.
+•Hapus node depan.
+•Selanjutnya hapus node belakang.
+•Selanjutnya hapus node yg memiliki data 300.
 •Akses semua data dari seluruh node tersebut dari node yg paling depan ke belakang.
 2.Buatlah method untuk mengakses semua data pada single linked list.
 3.Buatlah method untuk replace data pada single linked list. Gunakan pengaksesan index pada node.
  */
 
+//Kelas Node
 package Algoritma_Struktur_Data;
 
 public class Node {
@@ -25,7 +30,7 @@ public class Node {
   }
 }
 
-
+//Kelas Single Linked List
 package Algoritma_Struktur_Data;
 
 public class SingleLinkedList {
@@ -190,6 +195,7 @@ public class SingleLinkedList {
   }
 }
 
+//Kelas Main
   package Algoritma_Struktur_Data;
   
   public class SingleLinkedListTes {
